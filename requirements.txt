@@ -7,7 +7,7 @@ werkzeug==2.0.3  # Updated to a compatible version
 # Azure Services
 openai
 azure-search-documents
-azure-core2
+azure-core
 
 # Environment and Configuration
 python-dotenv==1.0.0
