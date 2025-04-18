@@ -46,7 +46,18 @@ from vote_manager import record_vote, init_db, fetch_votes, get_vote_statistics
 
 app = Flask(__name__)
 # logger = logging.getLogger(__name__) # Already got logger above
-CORS(app) # Apply CORS *after* getting logger
+
+# Configure CORS based on environment
+if os.getenv('FLASK_ENV') == 'production':
+    # For production, only allow requests from the Netlify domain
+    # Replace 'your-netlify-app.netlify.app' with your actual Netlify domain
+    netlify_domain = os.getenv('NETLIFY_DOMAIN', 'your-netlify-app.netlify.app')
+    logger.info(f"Configuring CORS for production, allowing origin: {netlify_domain}")
+    CORS(app, resources={r"/*": {"origins": f"https://{netlify_domain}"}})
+else:
+    # For development, allow all origins
+    logger.info("Configuring CORS for development, allowing all origins")
+    CORS(app)
 
 # Initialize the database (use the logger we just configured)
 logger.info("Initializing database...") # This should now log correctly

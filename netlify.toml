@@ -1,0 +1,45 @@
+[build]
+  base = "evalui/"
+  publish = "build/"
+  command = "npm run build"
+
+[build.environment]
+  # Add any environment variables needed for the build
+  NODE_VERSION = "19"
+
+# Redirect all API requests to the Heroku backend
+[[redirects]]
+  from = "/api/*"
+  to = "https://your-heroku-app-name.herokuapp.com/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/chat/*"
+  to = "https://your-heroku-app-name.herokuapp.com/chat/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/feedback/*"
+  to = "https://your-heroku-app-name.herokuapp.com/feedback/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/votes/*"
+  to = "https://your-heroku-app-name.herokuapp.com/votes/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/health"
+  to = "https://your-heroku-app-name.herokuapp.com/health"
+  status = 200
+  force = true
+
+# Handle client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
