@@ -2,6 +2,11 @@
 
 This project provides a React-based frontend UI for the Agilent Support Assistant, which uses Azure OpenAI Service with custom data via Azure Search.
 
+## Repositories
+
+- Backend: [https://github.com/guiiids/azure-ragilent](https://github.com/guiiids/azure-ragilent)
+- Frontend: [https://github.com/guiiids/azure-ragilent-frontend](https://github.com/guiiids/azure-ragilent-frontend)
+
 ## Features
 
 - Chat interface for user queries

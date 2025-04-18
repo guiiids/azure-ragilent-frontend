@@ -10,11 +10,15 @@ This guide provides instructions for deploying the Agilent Support Assistant app
 
 ## Deployment Steps
 
-### 1. Clone the Repository
+### 1. Clone the Repositories
 
 ```bash
-git clone <repository-url>
-cd agilent-support-assistant
+# Clone the backend repository
+git clone https://github.com/guiiids/azure-ragilent.git
+cd azure-ragilent
+
+# Clone the frontend repository
+git clone https://github.com/guiiids/azure-ragilent-frontend.git evalui
 ```
 
 ### 2. Configure Environment Variables
