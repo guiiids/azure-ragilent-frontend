@@ -117,5 +117,5 @@ htmlcov/
 # Application data
 feedback_data/
 
-# Git repositories inside directories
-evalui/.git/
+# Submodules (managed separately)
+evalui/
