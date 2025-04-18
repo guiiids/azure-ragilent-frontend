@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Format Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-case {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #2185D0;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .explanation {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #2185D0;
+            margin: 20px 0;
+        }
+        .code-highlight {
+            background-color: #ffffcc;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Citation Format Test</h1>
+    
+    <div class="explanation">
+        <p>This page demonstrates how the citation formatting works in the ChatResponse component after the recent changes. The component now handles both <code>[Source_1]</code> and <code>[1]</code> citation formats, displaying them consistently as <code>[1]</code> in the response text.</p>
+    </div>
+
+    <h2>How It Works</h2>
+    <p>The <code>renderLink</code> function in <code>ChatResponse.js</code> now:</p>
+    <ol>
+        <li>Detects both citation patterns: <code>[1]</code> and <code>[Source_1]</code></li>
+        <li>For <code>[Source_1]</code> format, it extracts the number and transforms it to <code>[1]</code> format</li>
+        <li>For <code>[1]</code> format, it keeps it as is</li>
+        <li>The Sources section remains unchanged, displaying source titles as clickable links</li>
+    </ol>
+
+    <h2>Code Changes</h2>
+    <p>The key changes to the <code>renderLink</code> function:</p>
+    <pre>
+// Check if the link text content matches the citation pattern e.g., "[1]" or "[Source_1]"
+const linkText = node.children[0]?.value || '';
+const citationMatch = linkText.match(/^\[(\d+)\]$/); // Match text like "[1]", "[2]", etc.
+const sourceMatch = linkText.match(/^\[(Source_(\d+))\]$/); // Match text like "[Source_1]", "[Source_2]", etc.
+
+if ((citationMatch || sourceMatch) && sources && sources.length > 0) {
+  let sourceIndex;
+  let sourceNumber;
+  
+  if (citationMatch) {
+    // If it's already in [1] format
+    sourceIndex = parseInt(citationMatch[1], 10) - 1; // Convert to 0-based index
+    sourceNumber = sourceIndex + 1; // For display, use 1-based index
+  } else {
+    // If it's in [Source_X] format, extract the number
+    const sourceNum = parseInt(sourceMatch[2], 10);
+    
+    // Try to find the source by matching the source number
+    // First, check if any source has an id property that matches the sourceId
+    const sourceId = sourceMatch[1]; // This is "Source_X"
+    
+    // Try to find a source with a matching id
+    const sourceWithMatchingId = sources.find(source => source.id === sourceId);
+    if (sourceWithMatchingId) {
+      // If found, get its index
+      sourceIndex = sources.indexOf(sourceWithMatchingId);
+    } else {
+      // If no matching id, use the source number as a 1-based index
+      // But ensure it's within the bounds of the sources array
+      sourceIndex = Math.min(sourceNum - 1, sources.length - 1);
+      
+      // Ensure sourceIndex is not negative
+      if (sourceIndex < 0) sourceIndex = 0;
+    }
+    
+    // For display, use 1-based index
+    sourceNumber = sourceIndex + 1;
+  }
+
+  // Display as [1], [2], etc. based on the source's position in the list
+  const displayText = `[${sourceNumber}]`;
+  
+  // ... rest of the function ...
+}
+    </pre>
+
+    <h2>Examples</h2>
+    <div class="test-case">
+        <h3>Example 1: Single Source</h3>
+        <p><strong>Original Response (from backend):</strong> Additionally, iLab offers a status page for operational updates and support options for further assistance [Source_1].</p>
+        
+        <p><strong>Rendered Response (in UI):</strong> Additionally, iLab offers a status page for operational updates and support options for further assistance <a href="#" style="color: #2185D0; text-decoration: none; font-weight: bold;">[1]</a>.</p>
+        
+        <h3>Example 2: Multiple Sources with Different Source Numbers</h3>
+        <p><strong>Original Response (from backend):</strong> Additionally, iLab offers a status page for operational updates [Source_1] and support options for further assistance [Source_5].</p>
+        
+        <p><strong>Rendered Response (in UI):</strong> Additionally, iLab offers a status page for operational updates <a href="#" style="color: #2185D0; text-decoration: none; font-weight: bold;">[1]</a> and support options for further assistance <a href="#" style="color: #2185D0; text-decoration: none; font-weight: bold;">[5]</a>.</p>
+        
+        <p><em>Note: With the improved implementation, [Source_5] is displayed as [5] in the UI if there are at least 5 sources in the sources array. If there are fewer sources, it will be displayed as the last available source number.</em></p>
+        
+        <h3>Example 3: Source Number Exceeding Available Sources</h3>
+        <p><strong>Original Response (from backend):</strong> Additionally, iLab offers a status page for operational updates [Source_10] but there are only 4 sources available.</p>
+        
+        <p><strong>Rendered Response (in UI):</strong> Additionally, iLab offers a status page for operational updates <a href="#" style="color: #2185D0; text-decoration: none; font-weight: bold;">[4]</a> but there are only 4 sources available.</p>
+        
+        <p><em>Note: When the source number exceeds the available sources, it will be displayed as the last available source number (in this case, [4]).</em></p>
+        
+        <h3>Sources Section</h3>
+        <div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+            <h4 style="color: #555; font-size: 16px; margin-top: 0; margin-bottom: 10px;">Sources</h4>
+            <ol style="list-style-type: decimal; padding-left: 24px; margin: 0;">
+                <li style="background-color: #f5f5f5; border-radius: 4px; padding: 8px 12px; margin-bottom: 8px; font-size: 14px;">
+                    <a href="#" style="text-decoration: none; color: #2185D0; display: block; font-size: 0.9rem;">
+                        <span style="font-weight: 500; color: #333;">iLab Documentation</span>
+                    </a>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="explanation">
+        <p><strong>Note:</strong> This is a static demonstration. In the actual application, the citations are clickable links that either open the source URL in a new tab or display the source content in a popup window if no URL is available.</p>
+    </div>
+</body>
+</html>
