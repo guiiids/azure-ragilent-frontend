@@ -1,0 +1,129 @@
+.feedback-container {
+  margin: 20px 0;
+  padding: 15px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.feedback-prompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.feedback-prompt span {
+  font-size: 16px;
+  color: #555;
+}
+
+.feedback-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.feedback-button {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 18px;
+}
+
+.feedback-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-button.selected {
+  border-width: 2px;
+}
+
+.thumbs-up.selected {
+  border-color: #28a745;
+  background-color: #d4edda;
+}
+
+.thumbs-down.selected {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+}
+
+.feedback-comment-section {
+  margin-top: 15px;
+  animation: fadeIn 0.3s ease;
+}
+
+.feedback-comment {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.feedback-cancel, .feedback-submit {
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.feedback-cancel {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  color: #555;
+}
+
+.feedback-submit {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: white;
+}
+
+.feedback-cancel:hover {
+  background-color: #e9ecef;
+}
+
+.feedback-submit:hover {
+  background-color: #0069d9;
+}
+
+.feedback-submitted {
+  text-align: center;
+  padding: 10px;
+  background-color: #d4edda;
+  border-radius: 4px;
+  color: #155724;
+  animation: fadeIn 0.3s ease;
+}
+
+.feedback-thanks {
+  font-weight: 500;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
