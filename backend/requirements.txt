@@ -1,0 +1,20 @@
+# Web Framework
+flask==2.0.1
+flask-cors==3.0.10
+gunicorn==20.1.0
+werkzeug==2.0.3  # Updated to a compatible version
+
+# Azure Services
+openai
+azure-search-documents
+azure-core
+
+# Environment and Configuration
+python-dotenv==1.0.0
+
+# Database
+sqlalchemy==2.0.20
+
+# Utilities
+requests==2.31.0
+pydantic==2.0.3

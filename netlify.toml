@@ -10,7 +10,7 @@
 # Redirect all API requests to the Heroku backend
 [[redirects]]
   from = "/api/*"
-  to = "https://azure-ragilent-backend-6828a7908b76.herokuapp.com/api/:splat"
+  to = "https://azure-ragilent-backend-6828a7908b76.herokuapp.com/:splat"
   status = 200
   force = true
 
