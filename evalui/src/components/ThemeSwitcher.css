@@ -1,0 +1,125 @@
+.theme-switcher {
+  position: relative; /* Keep relative for dropdown positioning */
+  z-index: 1000;
+  /* Let flexbox handle alignment, remove absolute positioning from toggle */
+}
+
+.theme-switcher-toggle {
+  /* Remove absolute positioning */
+  /* top: 10px; */
+  /* right: 10px; */
+  display: flex; /* Ensure button contents align */
+  align-items: center;
+}
+
+.theme-button {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.theme-button:hover {
+  background-color: #f5f5f5;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-icon {
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+.theme-options {
+  position: absolute;
+  /* Adjust dropdown position relative to the button's new flow position */
+  top: 100%; /* Position below the button */
+  right: 0; /* Align to the right edge of the theme-switcher container */
+  margin-top: 5px; /* Add some space */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 200px;
+  padding: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.theme-options.show {
+  display: flex;
+}
+
+.theme-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-option:hover {
+  background-color: #f5f5f5;
+}
+
+.theme-option.active {
+  background-color: #e3f2fd;
+}
+
+.theme-preview {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  margin-right: 10px;
+  border: 1px solid #e0e0e0;
+}
+
+.default-preview {
+  background: linear-gradient(135deg, #0e5a8a 50%, #007bff 50%);
+}
+
+.tailwind-preview {
+  background: linear-gradient(135deg, #3b82f6 50%, #10b981 50%);
+}
+
+.bootstrap-preview {
+  background: linear-gradient(135deg, #0d6efd 50%, #6c757d 50%);
+}
+
+.theme-name {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .theme-switcher-toggle {
+    top: 5px;
+    right: 5px;
+  }
+  
+  .theme-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+  
+  .theme-label {
+    display: none;
+  }
+  
+  .theme-icon {
+    margin-right: 0;
+  }
+  
+  .theme-options {
+    width: 150px;
+    right: 5px;
+  }
+}
