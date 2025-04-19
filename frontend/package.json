@@ -1,0 +1,24 @@
+{
+  "name": "agilent-support-assistant",
+  "version": "1.0.0",
+  "description": "Agilent Support Assistant with React UI and Python backend",
+  "main": "index.js",
+  "scripts": {
+    "start-backend": "python api.py",
+    "start-frontend": "cd evalui && npm start",
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "install-all": "npm install && cd evalui && npm install"
+  },
+  "keywords": [
+    "agilent",
+    "openai",
+    "azure",
+    "react",
+    "flask"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
+}
