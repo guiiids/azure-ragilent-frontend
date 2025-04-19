@@ -20,7 +20,7 @@ const EvaluationCard = ({ evaluation }) => {
 
   // Extract key metrics for display
   const {
-    user_question,
+    // user_question, // Removed as it's unused
     bot_understood_question,
     response_type,
     response_effectiveness,

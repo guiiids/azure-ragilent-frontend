@@ -3,14 +3,8 @@ import { useTheme } from '../contexts/ThemeContext';
 import './ChatResponse.css';
 import ReactMarkdown from 'react-markdown'; // Import ReactMarkdown if not already used elsewhere
 
-// Helper function to truncate text
-const truncateText = (text, maxLength) => {
-  if (!text) return '';
-  if (text.length <= maxLength) return text;
-  return text.substring(0, maxLength - 3) + '...';
-};
-
 // --- Removed formatResponseWithSourceNames function as logic moves to render ---
+// --- Removed unused truncateText helper function ---
 
 const ChatResponse = ({ response, sources }) => {
   const { getThemeClass, getThemeStyle } = useTheme();
